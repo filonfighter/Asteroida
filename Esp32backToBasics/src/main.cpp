@@ -1,17 +1,12 @@
 #include <Arduino.h>
 
-// put function declarations here:
-
+// Poniższy program powstał do testowania ogólnej sprawności komuinikacji między komputerem a płytką ESP32
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
   Serial.println("Hello World");
   delay(1000);
 }
-
-// put function definitions here:
