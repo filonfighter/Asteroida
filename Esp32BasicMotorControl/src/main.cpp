@@ -1,5 +1,9 @@
 #include <Arduino.h>
 
+// Following code works so when the button is pressed the start begins opening Oxygen and Fuel valves
+// After specified time the valves close and the test is over
+// If the button is pressed during the test, the valves close and the test is over
+
 // Motor Control Pins
 int motorOxygenEN = 34; // Motor Oxygen Enable Pin (must be PWM)
 int motorOxygenIN1 = 32; // Motor Oxygen Input 1 Pin
