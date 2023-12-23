@@ -24,6 +24,14 @@ int motorSpeedRetrive = 200; // 200/255
 // Motor opening speed
 int motorSpeedOpen = 255; // 255/255
 
+// Forward declarations
+void MotorOxygenForward(int speed);
+void MotorOxygenBackward(int speed);
+void MotorOxygenStop();
+void MotorFuelForward(int speed);
+void MotorFuelBackward(int speed);
+void MotorFuelStop();
+
 // Pin Setup
 void setup() {
   pinMode(motorOxygenEN, OUTPUT);
@@ -41,7 +49,7 @@ void loop() {
     // Open valves
     MotorOxygenForward(motorSpeedOpen);
     MotorFuelForward(motorSpeedOpen);
-    delay(motorTime)
+    delay(motorTime); // Added missing semicolon
     MotorOxygenStop();
     MotorFuelStop();
 
@@ -65,13 +73,13 @@ void loop() {
 }
 
 // Motor Control Functions
-void MotorOxygenForward(speed) {
+void MotorOxygenForward(int speed) { // Added type for parameter
   analogWrite(motorOxygenEN, speed); // Set speed
   digitalWrite(motorOxygenIN1, HIGH);
   digitalWrite(motorOxygenIN2, LOW);
 }
 
-void MotorOxygenBackward(speed) {
+void MotorOxygenBackward(int speed) { // Added type for parameter
   analogWrite(motorOxygenEN, speed); // Set speed
   digitalWrite(motorOxygenIN1, LOW);
   digitalWrite(motorOxygenIN2, HIGH);
@@ -83,13 +91,13 @@ void MotorOxygenStop() {
   digitalWrite(motorOxygenIN2, LOW);
 }
 
-void MotorFuelForward(speed) {
+void MotorFuelForward(int speed) { // Added type for parameter
   analogWrite(motorFuelEN, speed); // Set speed
   digitalWrite(motorFuelIN1, HIGH);
   digitalWrite(motorFuelIN2, LOW);
 }
 
-void MotorFuelBackward(speed) {
+void MotorFuelBackward(int speed) { // Added type for parameter
   analogWrite(motorFuelEN, speed); // Set speed
   digitalWrite(motorFuelIN1, LOW);
   digitalWrite(motorFuelIN2, HIGH);
