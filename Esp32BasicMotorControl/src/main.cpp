@@ -6,13 +6,13 @@
 // This is made specifically for the BTS7960B motor driver
 
 // Motor Control Pins
-int motorOxygenCW_EN = 34; // Motor Oxygen Enable Pin
-int motorOxygenCCW_EN = 33; // Motor Oxygen Enable Pin
-int motorOxygenSpeed = 32; // Motor Oxygen Speed input (must be PWM)
+int motorOxygenCW_EN = 39; // Motor Oxygen Enable Pin
+int motorOxygenCCW_EN = 36; // Motor Oxygen Enable Pin
+int motorOxygenSpeed = 34; // Motor Oxygen Speed input (must be PWM)
 
-int motorFuelCW_EN = 35; // Motor Fuel Enable Pin
-int motorFuelCCW_EN = 25; // Motor Fuel Enable Pin
-int motorFuelSpeed = 36; // Motor Fuel Speed input (must be PWM)
+int motorFuelCW_EN = 32; // Motor Fuel Enable Pin
+int motorFuelCCW_EN = 35; // Motor Fuel Enable Pin
+int motorFuelSpeed = 33; // Motor Fuel Speed input (must be PWM)
 
 // Button Pins
 int buttonStart = 27; // Start Button Pin
