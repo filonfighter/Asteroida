@@ -13,6 +13,7 @@ int motorOxygenSpeed = 32; // Motor Oxygen Speed input (must be PWM)
 int motorFuelCW_EN = 35; // Motor Fuel Enable Pin
 int motorFuelCCW_EN = 25; // Motor Fuel Enable Pin
 int motorFuelSpeed = 36; // Motor Fuel Speed input (must be PWM)
+
 // Button Pins
 int buttonStart = 27; // Start Button Pin
 
@@ -20,8 +21,10 @@ int buttonStart = 27; // Start Button Pin
 unsigned long waitTime = 5000; // 5 second
 
 // Motor Open/Close time in miliseconds
-unsigned long motorOpeningTime = 1000; // 1 second
-unsigned long motorClosingTime = 2000; // 2 seconds
+unsigned long motorOxygenOpeningTime = 1000; // 1 second
+unsigned long motorOxygenClosingTime = 2000; // 2 seconds
+unsigned long motorFuelOpeningTime = 1000; // 1 second
+unsigned long motorFuelClosingTime = 3000; // 3 seconds
 
 // Motor closing speed
 int motorSpeedClose = 200; // 200/255
@@ -37,6 +40,9 @@ void MotorFuelOpen(int speed);
 void MotorFuelClose(int speed);
 void MotorFuelStop();
 
+// Test permission
+bool testPermission = true;
+
 // Pin Setup
 void setup() {
   pinMode(motorOxygenCW_EN, OUTPUT);
@@ -50,13 +56,17 @@ void setup() {
 
 // Main Loop
 void loop() {
-  if (digitalRead(buttonStart) == HIGH) {
+  if (digitalRead(buttonStart) == HIGH && testPermission == true) {
     // Open valves
     MotorOxygenOpen(motorSpeedOpen);
-    MotorFuelOpen(motorSpeedOpen);
-    delay(motorOpeningTime);
+    delay(motorOxygenOpeningTime);
     MotorOxygenStop();
+
+    MotorFuelOpen(motorSpeedOpen);
+    delay(motorFuelOpeningTime);
     MotorFuelStop();
+
+    // Igniter part (work in progress)
 
     // Wait for test duration
     unsigned long startTime = millis();
@@ -64,23 +74,30 @@ void loop() {
       // If button is pressed, stop test
       if (digitalRead(buttonStart) == LOW) {
         MotorOxygenClose(motorSpeedClose);
-        MotorFuelClose(motorSpeedClose);
-        delay(motorClosingTime);
+        delay(motorOxygenClosingTime);
         MotorOxygenStop();
+
+        MotorFuelClose(motorSpeedClose);
+        delay(motorFuelClosingTime);
         MotorFuelStop();
+
+        testPermission = false;
         return;
       }
     }
 
     // Close valves
     MotorOxygenClose(motorSpeedClose);
-    MotorFuelClose(motorSpeedClose);
-    delay(motorClosingTime);
+    delay(motorOxygenClosingTime);
     MotorOxygenStop();
+
+    MotorFuelClose(motorSpeedClose);
+    delay(motorFuelClosingTime);
     MotorFuelStop();
+
+    testPermission = false;
   }
 }
-
 // Motor Control Functions
 void MotorOxygenOpen(int speed) {
   analogWrite(motorOxygenSpeed, speed); // Set speed
