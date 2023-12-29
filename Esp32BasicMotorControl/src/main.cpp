@@ -15,7 +15,10 @@ int motorFuelCCW_EN = 35; // Motor Fuel Enable Pin
 int motorFuelSpeed = 33; // Motor Fuel Speed input (must be PWM)
 
 // Button Pins
-int buttonStart = 27; // Start Button Pin
+int buttonStart = 25; // Start Button Pin
+
+// Igniter Pin
+int igniter = 26; // Igniter Pin
 
 // Test duration in miliseconds
 unsigned long waitTime = 5000; // 5 second
@@ -25,6 +28,9 @@ unsigned long motorOxygenOpeningTime = 1000; // 1 second
 unsigned long motorOxygenClosingTime = 2000; // 2 seconds
 unsigned long motorFuelOpeningTime = 1000; // 1 second
 unsigned long motorFuelClosingTime = 3000; // 3 seconds
+
+// Igniter time in miliseconds
+unsigned long igniterTime = 1000; // 1 second
 
 // Motor closing speed
 int motorSpeedClose = 200; // 200/255
@@ -39,6 +45,7 @@ void MotorOxygenStop();
 void MotorFuelOpen(int speed);
 void MotorFuelClose(int speed);
 void MotorFuelStop();
+void Ignite(int time);
 
 // Test permission
 bool testPermission = true;
@@ -52,6 +59,7 @@ void setup() {
   pinMode(motorFuelCCW_EN, OUTPUT);
   pinMode(motorFuelSpeed, OUTPUT);
   pinMode(buttonStart, INPUT);
+  pinMode(igniter, OUTPUT);
 }
 
 // Main Loop
@@ -66,7 +74,8 @@ void loop() {
     delay(motorFuelOpeningTime);
     MotorFuelStop();
 
-    // Igniter part (work in progress)
+    // Igniter part
+    Ignite(igniterTime); // Writes High to the igniter pin
 
     // Wait for test duration
     unsigned long startTime = millis();
@@ -133,4 +142,10 @@ void MotorFuelStop() {
   analogWrite(motorFuelSpeed, 0); // Set speed to 0%
   digitalWrite(motorFuelCW_EN, LOW);
   digitalWrite(motorFuelCCW_EN, LOW);
+}
+
+void Ignite(int time) {
+  digitalWrite(igniter, HIGH);
+  delay(time);
+  digitalWrite(igniter, LOW);
 }
