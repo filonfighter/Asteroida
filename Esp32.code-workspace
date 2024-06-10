@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "Esp32"
+		},
+		{
+			"name": "Asteroida",
+			"path": "Asteroida"
+		},
+		{
+			"name": "Esp32BasicMotorControl",
+			"path": "Asteroida/Esp32BasicMotorControl"
+		}
+	],
+	"settings": {}
+}
