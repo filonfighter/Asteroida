@@ -1,15 +1,15 @@
 #include <Arduino.h>
 #include "SPIFFS.h"
 
-// demo pin
+// demo input pin
 int loud_pin = 34;
  
 void setup() {
-  // setup
+  // demo setup
   Serial.begin(115200);
   pinMode(loud_pin, INPUT);
   
-  // Mount SPIFFS
+  // Mount SPIFFS Only to perform once at the beginning. Afer mounting on a device you can read and write files.
   if (SPIFFS.begin(true)) {
     Serial.println("SPIFFS mounted successfully.");
 } else {
@@ -21,13 +21,13 @@ void setup() {
  
 void loop() {
   
-  // read sensor data
+  // demo read sensor data
   int sensorData = analogRead(loud_pin);
 
-  // log sensor data
+  // writing to SPIFFS files
   File logFile = SPIFFS.open("/datalog.txt", "a");
 
-  // write to file in CSV format
+  // example of writing sensor data structure to a file
   if (logFile) {
     logFile.print(millis());
     logFile.print(", ");
